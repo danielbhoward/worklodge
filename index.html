@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font-size:14px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Daniel Howard × WorkLodge</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,800&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: WorkLodge brand (charcoal hero, burnt-orange accent, heavy tight sans) wrapped around a coworking floor plan.
+   Each room is a line of the job description; touring rooms "leases" them toward 100% occupancy. */
+:root{
+  --bg:#FAF8F6; --surface:#FFFFFF; --wall:#2B2725; --ink:#1F1B19; --muted:#6B6460;
+  --brass:#D4501C; --brass-soft:#FCE9DF; --line:#E8E2DD; --leased:#F5EEE8;
+  --ok:#2E7A4C; --mid:#A4501E; --hero:#2B2725; --on-hero:#FFFFFF; --on-hero-muted:#E4DEDA;
+  --slab:#D8CCC1; --fl:#F1E9E1; --fl2:#F7F1EB; --rug:#F6D6C5; --wall:#EFE6DD; --wood:#D8B48A; --chair:#4B4A52; --sofa:#E5E1DB;
+  --screen:#2B2725; --board:#FFFFFF; --plant:#6F9F69; --glass:#B9D3D8; --cab:#CEC3B8; --counter:#FBF8F5; --win:#BFD9E6; --skin:#E8C3A2;
+  --display:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Plus Jakarta Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#141211; --surface:#1D1A18; --wall:#4A433F; --ink:#F3EFEB; --muted:#A99F98;
+  --brass:#F0662E; --brass-soft:#3A2218; --line:#322D2A; --leased:#29221E; --ok:#7FC99C; --mid:#F2A35E;
+  --hero:#221E1C; --on-hero:#FFFFFF; --on-hero-muted:#D9D2CD;
+  --slab:#2B2522; --fl:#2A2522; --fl2:#322B27; --rug:#4C2E21; --wall:#3B3431; --wood:#8E6C47; --chair:#6E6D76; --sofa:#8A847E;
+  --screen:#0D0B0A; --board:#E8E2DD; --plant:#5E8C59; --glass:#5E7E86; --cab:#5A534E; --counter:#77706A; --win:#3F5F70; --skin:#C99D7C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141211; --surface:#1D1A18; --wall:#4A433F; --ink:#F3EFEB; --muted:#A99F98;
+  --brass:#F0662E; --brass-soft:#3A2218; --line:#322D2A; --leased:#29221E; --ok:#7FC99C; --mid:#F2A35E;
+  --hero:#221E1C; --on-hero:#FFFFFF; --on-hero-muted:#D9D2CD;
+  --slab:#2B2522; --fl:#2A2522; --fl2:#322B27; --rug:#4C2E21; --wall:#3B3431; --wood:#8E6C47; --chair:#6E6D76; --sofa:#8A847E;
+  --screen:#0D0B0A; --board:#E8E2DD; --plant:#5E8C59; --glass:#5E7E86; --cab:#5A534E; --counter:#77706A; --win:#3F5F70; --skin:#C99D7C; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:500 16px/1.55 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1180px;margin:0 auto;padding-block:24px 64px;display:grid;gap:40px}
+h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.03em;text-wrap:balance;margin:0;line-height:1.05}
+.eyebrow{font:700 12px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
+a{color:var(--brass)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+
+/* brand bar */
+.brandbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:10px 10px 10px 22px}
+.mark{display:flex;align-items:center;gap:10px;font:600 15px/1 Georgia,"Times New Roman",serif;letter-spacing:.06em;text-transform:uppercase}
+.mark svg{flex:none}
+.mark small{display:block;font:600 9px/1.2 var(--display);letter-spacing:.14em;color:var(--muted);margin-top:3px}
+.pillbtn{display:inline-flex;align-items:center;padding:12px 22px;border-radius:999px;background:var(--brass);color:#fff;
+  font:800 13px/1 var(--display);letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--hero);color:var(--on-hero);border-radius:24px 24px 50% 50% / 24px 24px 40px 40px;
+  padding:clamp(36px,6vw,72px) clamp(20px,5vw,64px) clamp(52px,7vw,88px);display:grid;gap:22px}
+.hero > *{position:relative;max-width:820px}
+.ghost{position:absolute;right:-2%;bottom:-6%;max-width:none;font:800 clamp(6rem,18vw,15rem)/1 var(--display);letter-spacing:-.05em;
+  color:var(--on-hero);opacity:.07;pointer-events:none;user-select:none;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:10px;justify-self:start;padding:9px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);font:700 12px/1.3 var(--display);letter-spacing:.16em;text-transform:uppercase}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:#9AA39E}
+.hero h1{font-size:clamp(2.6rem,7vw,5.6rem);letter-spacing:-.045em;line-height:.98}
+.hero h1 em{display:block;font-style:italic;color:var(--brass)}
+.hero p{margin:0;font-size:clamp(1.05rem,1.6vw,1.3rem);font-weight:500;color:var(--on-hero-muted);max-width:56ch}
+.links{display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:9px;border:1.5px solid var(--line);
+  text-decoration:none;color:var(--ink);font:800 1rem/1 var(--display);letter-spacing:-.01em;background:var(--surface);cursor:pointer}
+.btn.solid{background:var(--brass);color:#fff;border-color:var(--brass)}
+.btn.ghostbtn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);color:#fff}
+.stars{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--on-hero-muted)}
+.stars b{color:var(--brass);letter-spacing:.12em;font-size:1.1rem}
+
+/* occupancy meter */
+.meter{display:grid;gap:10px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.meter-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.meter strong{font:800 2.2rem/1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.meter small{color:var(--muted);font-size:.92rem;font-weight:600}
+.bar{height:10px;background:var(--line);border-radius:999px;overflow:hidden;display:grid;grid-template-columns:repeat(10,1fr);gap:3px}
+.bar i{background:transparent;transition:background .3s}
+.bar i.on{background:var(--brass)}
+
+/* isometric map */
+.mapsec{display:grid;gap:14px}
+.maphead{display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap}
+.maphead h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+.maphead h2 em{font-style:italic;color:var(--brass)}
+.maphead p{margin:6px 0 0;color:var(--muted);max-width:56ch}
+.mapwrap{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:clamp(8px,2vw,24px);overflow:hidden}
+.map{position:relative;max-width:980px;margin:0 auto}
+.map svg{display:block;width:100%;height:auto}
+.map svg *{stroke:none}
+.slab{fill:var(--slab)} .fl{fill:var(--fl)} .fl2{fill:var(--fl2)} .rug{fill:var(--rug)}
+.wall{fill:var(--wall)} .wood{fill:var(--wood)} .chair{fill:var(--chair)} .sofa{fill:var(--sofa)}
+.screen{fill:var(--screen)} .board{fill:var(--board)} .plant{fill:var(--plant)} .cab{fill:var(--cab)}
+.counter{fill:var(--counter)} .accent{fill:var(--brass)} .win{fill:var(--win)}
+.glass{fill:var(--glass);fill-opacity:.45}
+.s1{fill:#000;fill-opacity:.07} .s2{fill:#000;fill-opacity:.17}
+.route{fill:none!important;stroke:var(--brass)!important;stroke-width:2.2;stroke-dasharray:7 7;stroke-linecap:round;opacity:.75}
+.pin{position:absolute;transform:translate(-50%,-100%);border:0;background:none;padding:0;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.pin .head{width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--brass);
+  box-shadow:0 6px 14px rgba(0,0,0,.25);display:grid;place-items:center;transition:transform .2s,background .2s}
+.pin .head span{transform:rotate(45deg);color:#fff;font:800 14px/1 var(--display)}
+.pin .dot{width:10px;height:4px;border-radius:50%;background:rgba(0,0,0,.25);margin-top:4px}
+.pin .lbl{position:absolute;left:calc(100% + 4px);top:4px;white-space:nowrap;background:var(--surface);color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:5px 10px;font:700 12px/1 var(--display);box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.pin:hover .head,.pin:focus-visible .head{transform:rotate(-45deg) scale(1.12)}
+.pin.seen .head{background:var(--ok)}
+.pin.next .head{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -6px}}
+@media (max-width:760px){.pin .lbl{display:none}.pin .head{width:28px;height:28px}.pin .head span{font-size:12px}}
+.stops{display:flex;flex-wrap:wrap;gap:8px}
+.stop{display:inline-flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;border-radius:999px;border:1px solid var(--line);
+  background:var(--surface);cursor:pointer;font:700 13px/1 var(--display)}
+.stop i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--brass);color:#fff;font-size:11px}
+.stop.seen i{background:var(--ok)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);font-weight:600}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend b{width:10px;height:10px;border-radius:50%;display:inline-block}
+
+/* evidence outside of work */
+.ev li.x-vol,.ev li.x-biz{border:0;border-radius:12px;padding:12px 14px;gap:4px}
+.ev li.x-vol{background:color-mix(in srgb,var(--ok) 11%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ok) 30%,transparent)}
+.ev li.x-biz{background:color-mix(in srgb,var(--mid) 11%,var(--surface));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--mid) 30%,transparent)}
+.ev li.x-vol + li,.ev li.x-biz + li{border-top:0}
+.tag{display:inline-flex;align-items:center;gap:6px;justify-self:start;font:700 10.5px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px}
+.tag svg{width:13px;height:13px;fill:currentColor}
+.x-vol .tag{color:var(--ok)} .x-biz .tag{color:var(--mid)}
+.ev li.x-vol .src,.ev li.x-biz .src{color:var(--ink)}
+
+/* finale animation */
+.glow{fill:var(--brass);fill-opacity:0;transition:fill-opacity .7s ease}
+.glow.on{fill-opacity:.16}
+.lodger{opacity:0;transform:scale(0);transform-box:fill-box;transform-origin:50% 100%}
+.lg.on .lodger{animation:popin .55s cubic-bezier(.3,1.7,.5,1) forwards;animation-delay:var(--d)}
+@keyframes popin{to{opacity:1;transform:scale(1)}}
+.skin{fill:var(--skin)} .b0{fill:var(--brass)} .b1{fill:var(--ok)} .b2{fill:var(--mid)} .b3{fill:var(--chair)}
+.map.done .pin{opacity:.55} .map.done .pin:hover,.map.done .pin:focus-visible{opacity:1}
+.stamp{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-8deg);opacity:0;pointer-events:none;
+  background:var(--surface);color:var(--ok);border:4px solid var(--ok);border-radius:14px;padding:12px 22px 14px;text-align:center;
+  box-shadow:0 18px 40px rgba(0,0,0,.18)}
+.stamp b{display:block;font:800 clamp(1.5rem,4.4vw,2.8rem)/1 var(--display);letter-spacing:-.02em;text-transform:uppercase}
+.stamp small{display:block;margin-top:6px;font:700 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase}
+.stamp.on{animation:stamp .55s cubic-bezier(.2,1.5,.4,1) forwards}
+@keyframes stamp{from{opacity:0;transform:translate(-50%,-50%) rotate(-8deg) scale(2.4)}to{opacity:1;transform:translate(-50%,-50%) rotate(-8deg) scale(1)}}
+.conf{position:absolute;top:-3%;width:8px;height:13px;border-radius:2px;opacity:0;pointer-events:none;
+  animation:fall var(--t) cubic-bezier(.2,.6,.4,1) var(--dl) forwards}
+@keyframes fall{0%{opacity:1;transform:translate(0,0) rotate(0)}85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),680px) rotate(var(--r))}}
+.full .bar i.on{background:var(--ok)}
+.finale{position:relative;overflow:hidden;background:var(--hero);color:#fff;border-radius:24px;padding:clamp(28px,5vw,52px);display:grid;gap:18px}
+.finale > *{position:relative;max-width:760px}
+.finale .ghost{position:absolute;right:-1%;bottom:-12%;max-width:none}
+.finale h2{font-size:clamp(2rem,4.6vw,3.4rem);letter-spacing:-.04em}
+.finale h2 em{display:block;font-style:italic;color:var(--brass)}
+.finale p{margin:0;font-size:1.1rem;color:var(--on-hero-muted);max-width:58ch}
+.finale .tally{display:flex;flex-wrap:wrap;gap:8px}
+.finale .tally span{padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);font:700 13px/1 var(--display)}
+.finale .tally span b{color:#9BE0B4}
+.finale .mail{font-weight:700;color:#fff;user-select:all}
+.finale .linkbtn{background:none;border:0;padding:0;color:#FFB48E;font:700 .95rem/1 var(--display);text-decoration:underline;cursor:pointer;justify-self:start}
+.finale.on{animation:rise .6s ease-out both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.lg.on .lodger{animation:none;opacity:1;transform:none}.stamp.on,.finale.on{animation:none;opacity:1}.glow{transition:none}}
+
+/* modal */
+.scrim[hidden]{display:none}
+.scrim{position:fixed;inset:0;background:rgba(20,16,14,.55);display:grid;place-items:center;z-index:50;
+  padding:calc(env(safe-area-inset-top,0px) + 16px) max(16px,env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 16px) max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--surface);color:var(--ink);border-radius:20px;width:min(600px,100%);max-height:100%;overflow:auto;
+  padding:26px;display:grid;gap:16px;box-shadow:0 30px 80px rgba(0,0,0,.35);animation:pop .22s ease-out}
+@keyframes pop{from{transform:translateY(12px) scale(.98);opacity:.4}to{transform:none;opacity:1}}
+.modal .top{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.x{border:1px solid var(--line);background:var(--bg);border-radius:50%;width:36px;height:36px;cursor:pointer;font:700 18px/1 var(--display)}
+.chip{font:700 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;border-radius:999px;border:1.5px solid currentColor}
+.chip.Direct{color:var(--ok)} .chip.Strong{color:var(--brass)} .chip.Transferable{color:var(--mid)}
+.modal h2{font-size:1.9rem}
+.modal .topic{margin:-8px 0 0;color:var(--muted);font-weight:700}
+.req{margin:0;padding:12px 14px;border-left:3px solid var(--brass);background:var(--bg);border-radius:0 8px 8px 0;font-size:.97rem}
+.req b{display:block;font:700 10.5px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.pitch{margin:0;font-size:1.08rem;font-weight:700;letter-spacing:-.01em}
+.ev{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.ev li{display:grid;gap:2px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.ev li:last-child{border-bottom:0;padding-bottom:0}
+.ev .src{font:700 12.5px/1.3 var(--display);color:var(--brass)}
+.ev .txt{font-size:.97rem}
+.for{margin:0;font-size:.95rem;color:var(--muted)}
+.for b{color:var(--ink)}
+.nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){.pin.next .head,.modal{animation:none}}
+
+/* lower sections */
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:820px){.cols{grid-template-columns:1fr}}
+.sec{display:grid;gap:18px}
+.sec h2{font-size:clamp(1.8rem,3.4vw,2.6rem)}
+.sec h2 em{font-style:italic;color:var(--brass)}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;display:grid;gap:10px;align-content:start}
+.phase .d{font:800 1.5rem/1 var(--display);letter-spacing:-.03em;color:var(--brass)}
+.phase ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:.95rem}
+.ramp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:700px){.ramp{grid-template-columns:1fr}}
+.ramp p{margin:0;padding:18px 20px;border:1.5px dashed var(--line);border-radius:14px;font-size:.97rem}
+.ramp p b{display:block;font:800 1.08rem/1.2 var(--display);letter-spacing:-.02em;margin-bottom:6px}
+.contact{background:var(--hero);color:#fff;border-radius:24px;padding:clamp(26px,4vw,44px);display:grid;gap:16px}
+.contact h2{font-size:clamp(1.9rem,4vw,3rem);letter-spacing:-.04em}
+.contact h2 em{font-style:italic;color:var(--brass)}
+.contact .eyebrow{color:var(--brass)}
+.contact .rows{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;font-weight:700;font-size:1rem}
+.contact a{color:#FFB48E}
+.done{display:none}
+.full .done{display:block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <nav class="brandbar" aria-label="Page">
+    <span class="mark"><svg width="22" height="24" viewBox="0 0 22 24" aria-hidden="true"><path d="M2 10 11 2l9 8v12H2z" fill="var(--brass)"/></svg><span>Daniel B. Howard<small>Candidate for WorkLodge Community Sales Lead</small></span></span>
+    <a class="pillbtn" href="#contact">Say hello</a>
+  </nav>
+
+  <header class="hero">
+    <span class="ghost" aria-hidden="true">Lodger.</span>
+    <span class="pill">Community Sales Lead · Woodlands / Vintage Park</span>
+    <h1>Sales, community and coworking.<em>I'd love to help.</em></h1>
+    <p>Thanks for taking a look. I put this together to show how my background lines up with the role. Each room on the floor below is one line from the job description, with the experience I'd bring to it. Visit all ten and the building reaches 100% occupancy.</p>
+    <div class="links">
+      <a class="btn solid" href="#plan">Take the Tour</a>
+      <a class="btn ghostbtn" href="https://danielbhoward.ai.studio/" target="_blank" rel="noopener">Portfolio ↗</a>
+      <a class="btn ghostbtn" href="https://danielbhoward.ai.studio/resume.pdf?v=2" target="_blank" rel="noopener">Résumé ↗</a>
+    </div>
+    <div class="stars">A few results from teams I've been part of: 153% of quota <b>/</b> $10.4M pipeline <b>/</b> +31% lead conversion</div>
+  </header>
+
+  <div class="meter" id="meter" aria-live="polite">
+    <div class="meter-row">
+      <div><span class="eyebrow">Tour progress</span><br><strong id="pct">0%</strong></div>
+      <small id="meterNote">0 of 10 rooms toured</small>
+    </div>
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <section class="mapsec" id="plan">
+    <div class="maphead">
+      <div><div class="eyebrow">The floor</div><h2>Ten rooms. <em>One for each part of the role.</em></h2>
+      <p>Each pin is a line from the job description. Follow the numbers for the full tour, or jump to any room.</p></div>
+      <button class="btn solid" type="button" id="start">Start the tour</button>
+    </div>
+    <div class="mapwrap"><div class="map" id="map"></div></div>
+    <div class="legend"><span><b style="background:var(--brass)"></b>Not yet toured</span><span><b style="background:var(--ok)"></b>Toured</span></div>
+    <div class="stops" id="stops"></div>
+  </section>
+  <section class="finale" id="finale" hidden aria-live="polite">
+    <span class="ghost" aria-hidden="true">100%.</span>
+    <div class="eyebrow">Tour complete</div>
+    <h2>Thanks for the tour.<em>I'd love to hear about yours.</em></h2>
+    <p>I appreciate you taking the time to walk through this. I'd really enjoy learning more about WorkLodge, your team and what you're looking for in this role. If it would be helpful, I'm happy to grab a coffee at Vintage Park or The Woodlands, or just jump on a quick call, whenever works for you.</p>
+    <div class="tally"><span><b>10/10</b> rooms visited</span><span><b>2</b> sites I'd love to call home</span></div>
+    <div class="links">
+      <button class="btn solid" type="button" id="fCopy">Copy my email</button>
+      <a class="btn ghostbtn" href="mailto:howard.dh@gmail.com?subject=Community%20Sales%20Lead%20%E2%80%93%20let%27s%20talk">Email Daniel</a>
+      <a class="btn ghostbtn" href="https://danielbhoward.ai.studio/resume.pdf?v=2" target="_blank" rel="noopener">Résumé ↗</a>
+    </div>
+    <p style="font-size:.95rem">Prefer to call? <span class="mail">214.883.6722</span> · <span class="mail">howard.dh@gmail.com</span></p>
+    <button class="linkbtn" type="button" id="replay">Replay the animation</button>
+  </section>
+  <div class="scrim" id="scrim" hidden><div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle" tabindex="-1"></div></div>
+
+  <section class="sec">
+    <div class="eyebrow">A starting point for the first 90 days</div>
+    <h2>How I'd hope to get started, <em>with your team's input.</em></h2>
+    <div class="cols">
+      <div class="phase"><div class="d">Days 1–30</div><ul>
+        <li>Shadow tours at both sites and learn every membership, office and pricing option.</li>
+        <li>Audit the CRM: open opportunities, lead sources, and any tour without a next step.</li>
+        <li>Meet current Lodgers to learn why they joined and who they'd refer.</li></ul></div>
+      <div class="phase"><div class="d">Days 31–60</div><ul>
+        <li>Run a standard tour-to-close path with a follow-up cadence tracked in the CRM.</li>
+        <li>Launch outbound to local small businesses, brokers and remote-worker groups.</li>
+        <li>Co-plan a first lead-generating event with the community team.</li></ul></div>
+      <div class="phase"><div class="d">Days 61–90</div><ul>
+        <li>Publish a weekly occupancy and pipeline report by site.</li>
+        <li>Write the sales playbook and train the team on tours and follow-up.</li>
+        <li>Double down on the lead sources that actually filled offices.</li></ul></div>
+    </div>
+  </section>
+
+
+  <section class="contact" id="contact">
+    <div class="eyebrow">Next step</div>
+    <h2 class="done">Thanks for visiting. <em>I'd love to see the real thing.</em></h2>
+    <h2 class="pre">Thanks for stopping by. <em>I'd love to connect.</em></h2>
+    <div class="rows">
+      <span id="email">howard.dh@gmail.com</span>
+      <button class="btn solid" id="copy" type="button">Copy email</button>
+      <span>214.883.6722</span>
+      <a href="https://danielbhoward.ai.studio/" target="_blank" rel="noopener">danielbhoward.ai.studio ↗</a>
+    </div>
+  </section>
+</div>
+
+<script>
+const rooms=[
+ {id:'desk',wing:'resp',no:'RM 101',name:'Front Desk',level:'Strong',
+  req:'Serve as the primary contact for all sales-related activities',
+  pitch:'In most of my roles I\'ve been a go-to point of contact for prospects, sellers, marketers and engineers, and I\'ve enjoyed being that connector.',
+  ev:[['iLAND Cloud · Manager, Business Development','Led a global BD team across three regions to 153% of quota and partnered with Marketing and Sales leadership to generate $10.4M in qualified pipeline.'],
+      ['Skyhigh Security · Business Systems Manager','Primary liaison between business stakeholders and technical teams, turning priorities into working solutions.'],
+      ['Baker Tilly · Manager, Sales Development','Founded the firm\'s first Sales Development organization: operating model, engagement strategy, workflows and tech stack.']],
+  lodge:'Prospects and Lodgers would have one consistent person to work with, from first inquiry to move-in.'},
+ {id:'tour',wing:'resp',no:'RM 102',name:'Tour Route',level:'Direct',
+  req:'Lead tours of workspace solutions for potential Lodgers',
+  pitch:'Coworking spaces have been a big part of my working life, at three different spaces in two cities, and I\'ve often been the person trusted with a company\'s first impression.',
+  ev:[['WeWork · Austin & The Cannon · Houston (×2)','Experienced the coworking model firsthand at WeWork and at The Cannon, a Houston entrepreneur community where the community really is the product. I saw how memberships and private offices are sold, and what keeps members around.'],
+      ['HCSS · Talent Acquisition Advisor','HCSS is a perennial Best Place to Work in Texas company, and every onsite candidate got a guided walking tour of the campus from us. I learned how to show off a workplace and its culture, and help people picture themselves there.'],
+      ['Sewell Automotive · Management Trainee / Sales Associate','Started in face-to-face sales on the showroom floor, where the walkthrough is the pitch.']],
+  lodge:'Tours that show off the community and the workday at both sites, not just the square footage.'},
+ {id:'pipe',wing:'resp',no:'RM 103',name:'Pipeline Room',level:'Strong',
+  req:'Build and maintain a pipeline of leads through proactive outreach',
+  pitch:'Building and tracking pipeline has been a common thread in every role I\'ve had.',
+  ev:[['iLAND Cloud','Coached a BD team that reached 153% of quota, and helped raise department sales production 46%.'],
+      ['Baker Tilly','Increased lead conversion 31% by redesigning qualification, routing and Marketing-to-Sales handoff.'],
+      ['Skyhigh Security','Enabled 100+ global sellers on lead management, contributing to $40M+ in pipeline, and uncovered $130M in previously unattributed pipeline.']],
+  lodge:'Steady outreach plus partner and referral relationships, tracked so the team can see which channels work best.'},
+ {id:'event',wing:'resp',no:'RM 104',name:'Event Hall',level:'Strong',
+  req:'Collaborate with the community team to develop events that drive leads',
+  pitch:'Bringing people together is something I genuinely enjoy, both as a volunteer and in our family business.',
+  ev:[['F3 (Fitness, Fellowship, Faith) · Second F / Social Chair','Plan the fellowship side of a men\'s workout group. Incoming overall president of the organization.','vol'],
+      ['Houston Livestock Show and Rodeo · Veteran volunteer','Multi-year volunteer at one of Houston\'s biggest community events, and grateful to have been recognized for my work there.','vol'],
+      ['Snow cone trailer business · Co-owner','Book events with PTOs, HOAs and churches on a revenue-share model, a partner-driven lead engine.','biz'],
+      ['Skyhigh Security · Marketing Technology Manager','Ran campaign and webinar operations and improved campaign effectiveness 88%.']],
+  lodge:'Working with the community team on events that welcome new faces, with thoughtful follow-up afterward.'},
+ {id:'follow',wing:'resp',no:'RM 105',name:'Follow-Up Office',level:'Direct',
+  req:'Maintain 100% follow-up compliance for tours and sales opportunities',
+  pitch:'I\'ve found that consistent follow-up comes from simple, clear processes, and building those is work I enjoy.',
+  ev:[['Baker Tilly · Manager, Sales Development','While building the firm\'s new Sales Development department from scratch, I defined what good follow-up should look like, then modeled it alongside new hires and taught it as part of their onboarding.'],
+      ['Skyhigh Security','Owned the full lead-to-cash lifecycle, from capture and routing through conversion and attribution, and built KPI dashboards that cut manual reporting 10 hours a week.'],
+      ['iLAND Cloud','Redesigned compensation, performance metrics and accountability standards for the BD team.']],
+  lodge:'Every tour gets a clear next step and date in the CRM, so nobody falls through the cracks.'},
+ {id:'train',wing:'resp',no:'RM 106',name:'Training Room',level:'Direct',
+  req:'Train and mentor team members on sales practices',
+  pitch:'Helping teammates ramp up and succeed has been one of the most rewarding parts of my career.',
+  ev:[['iLAND Cloud · Manager, Business Development','Managed and coached a global business development team. The onboarding, playbooks and workflows I built cut ramp time by 30 days and raised new-hire productivity 50%.'],
+      ['Baker Tilly · Manager, Sales Development','Hired and managed the firm\'s first sales development team, and wrote the process maps, SOPs, onboarding and KPI reporting they worked from.'],
+      ['Skyhigh Security','Trained 100+ global sellers on Salesforce best practices for leads, campaigns and reporting.']],
+  lodge:'Sharing what I learn, and learning from the team, so everyone has a simple playbook to work from.'},
+ {id:'b2b',wing:'qual',no:'RM 201',name:'B2B Track Record',level:'Direct',
+  req:'3–5 years of proven success in a B2B sales environment',
+  pitch:'My B2B experience covers selling, managing sales teams and running sales operations, so I\'ve been able to see the whole picture from the first conversation to the closed deal.',
+  ev:[['FanReact · Business Development Director','Oct 2017 – Jan 2019'],
+      ['iLAND Cloud · Manager, Business Development','Jan 2019 – Mar 2020 · team at 153% of quota'],
+      ['Baker Tilly · Manager, Sales Development','Jul 2020 – Jul 2022 · +31% lead conversion'],
+      ['Skyhigh Security · Sales Ops, Business Systems, MarTech','Jul 2022 – Jul 2026']],
+  lodge:'Experience carrying a number, plus an understanding of the systems that support a sales team.'},
+ {id:'comm',wing:'qual',no:'RM 202',name:'Communication',level:'Strong',
+  req:'Superior communication skills, both written and verbal',
+  pitch:'I studied communications, and much of my work has been helping different groups understand each other.',
+  ev:[['Texas A&M University','B.A., Communications & Marketing, minor in Business Administration.'],
+      ['Skyhigh Security','Aligned executive stakeholders around priorities and wrote the SOPs and implementation guides teams adopted.'],
+      ['This page','I made this to share my background in a way that\'s easy to explore. I built my portfolio site as well.']],
+  lodge:'Friendly tours, clear proposals and thoughtful follow-up.'},
+ {id:'crm',wing:'qual',no:'RM 203',name:'CRM & Office Suite',level:'Direct',
+  req:'Proficiency with CRM platforms and Microsoft Office Suite',
+  pitch:'I\'ve used CRMs daily and have also helped administer and implement them, and I\'d love to add Fortavo to the list.',
+  ev:[['CRM & revenue platforms','Salesforce (admin and subject-matter expert), Pardot, Marketo, RingDNA, 6sense, HubSpot (working knowledge).'],
+      ['Office & analytics','Microsoft 365, Excel, Power BI, Looker, Google Workspace.'],
+      ['Implementation','Led Salesforce, Pardot, RingDNA and enterprise Marketo rollouts.']],
+  lodge:'I\'d be comfortable getting up to speed quickly on Fortavo and any other systems WorkLodge uses.'},
+ {id:'ent',wing:'qual',no:'RM 204',name:'Entrepreneur Lounge',level:'Direct',
+  req:'A passion for entrepreneurial communities',
+  pitch:'I\'m a small-business owner myself, so I can relate to the business owners who make WorkLodge their home base.',
+  ev:[['Snow cone trailer business · Co-owner with my wife','Grew to a second trailer in 2026, selling through community partners.','biz'],
+      ['FanReact (now Truss App)','Business Development Director at an early-stage startup.'],
+      ['WeWork Austin & The Cannon Houston','Chose entrepreneurial coworking communities again and again.'],
+      ['F3 Houston area','Social chair and incoming president of a volunteer-led community.','vol']],
+  lodge:'I know what it\'s like to build something small and local, and I\'d enjoy helping other owners find a place to grow.'}
+];
+
+const $=s=>document.querySelector(s);
+const bar=$('#bar'); for(let i=0;i<10;i++) bar.appendChild(document.createElement('i'));
+/* tour order, place names and footprint (plan units: x 0–120 across, y 0–90 deep) */
+const geo={
+ desk:{place:'Front Desk',r:[0,28,30,30]}, tour:{place:'Open Coworking',r:[30,28,60,30]},
+ pipe:{place:'Pipeline Room',r:[60,0,30,28]}, follow:{place:'Follow-Up Office',r:[36,0,24,28]},
+ event:{place:'Event Hall & Café',r:[55,58,65,32]}, train:{place:'Training Room',r:[0,0,36,28]},
+ b2b:{place:'Sales Office',r:[30,58,25,32]}, comm:{place:'Meeting Room',r:[90,28,30,30]},
+ crm:{place:'Tech Bar',r:[90,0,30,28]}, ent:{place:"Founders' Lounge",r:[0,58,30,32]}};
+const order=['desk','tour','pipe','follow','event','train','b2b','comm','crm','ent'];
+const R=Object.fromEntries(rooms.map(r=>[r.id,r]));
+const S=5, K=.866;
+const P=(x,y,z)=>[((x-y)*K*S).toFixed(1),((x+y)*.5*S-z*S).toFixed(1)];
+const pts=a=>a.map(q=>P(...q).join(',')).join(' ');
+const poly=(a,c)=>`<polygon class="${c}" points="${pts(a)}"/>`;
+const items=[];
+function box(x,y,w,d,h,m,z0=0){const t=z0+h;
+  const L=[[x,y+d,z0],[x+w,y+d,z0],[x+w,y+d,t],[x,y+d,t]], Rr=[[x+w,y,z0],[x+w,y+d,z0],[x+w,y+d,t],[x+w,y,t]], T=[[x,y,t],[x+w,y,t],[x+w,y+d,t],[x,y+d,t]];
+  items.push({k:x+w/2+y+d/2+z0*.001,svg:poly(L,m)+poly(L,'s1')+poly(Rr,m)+poly(Rr,'s2')+poly(T,m)});}
+function wallX(x1,x2,y,h,m,t=.8){for(let x=x1;x<x2;x+=6)box(x,y-t/2,Math.min(6,x2-x),t,h,m)}
+function wallY(y1,y2,x,h,m,t=.8){for(let y=y1;y<y2;y+=6)box(x-t/2,y,t,Math.min(6,y2-y),h,m)}
+function desk(x,y,w=10,d=5,mon=true){box(x,y,w,d,5,'wood');if(mon)box(x+w/2-2,y+.6,4,.6,3.5,'screen',5);box(x+w/2-1.5,y+d+1,3,3,3,'chair');box(x+w/2-1.5,y+d+3.4,3,.6,6,'chair')}
+function chair(x,y){box(x,y,2.6,2.6,3,'chair');box(x,y+2.2,2.6,.5,5.5,'chair')}
+function plant(x,y,h=7){box(x,y,2.4,2.4,2,'cab');box(x-.5,y-.5,3.4,3.4,h-2,'plant',2)}
+
+function build(){
+  let base=poly([[-2,92,0],[122,92,0],[122,92,-2],[-2,92,-2]],'slab')+poly([[122,-2,0],[122,92,0],[122,92,-2],[122,-2,-2]],'slab')+poly([[122,-2,-2],[122,92,-2],[122,92,-2]],'slab');
+  let floors=poly([[-2,-2,0],[122,-2,0],[122,92,0],[-2,92,0]],'fl');
+  order.forEach((id,i)=>{const [x,y,w,d]=geo[id].r; floors+=poly([[x,y,0],[x+w,y,0],[x+w,y+d,0],[x,y+d,0]],i%2?'fl2':'fl')});
+  order.forEach(id=>{const [x,y,w,d]=geo[id].r; floors+=`<polygon class="glow" id="glow-${id}" points="${pts([[x+1,y+1,0],[x+w-1,y+1,0],[x+w-1,y+d-1,0],[x+1,y+d-1,0]])}"/>`});
+  floors+=poly([[36,33,0],[84,33,0],[84,54,0],[36,54,0]],'rug')+poly([[5,63,0],[24,63,0],[24,84,0],[5,84,0]],'rug');
+  /* outer walls with windows */
+  for(let x=0;x<120;x+=6)box(x,-2,6,2,22,'wall'); for(let y=0;y<90;y+=6)box(-2,y,2,6,22,'wall'); box(-2,-2,2,2,22,'wall');
+  [[40,0],[66,0],[80,0],[96,0],[108,0]].forEach(([x])=>items.push({k:x+4,svg:poly([[x,0,8],[x+8,0,8],[x+8,0,18],[x,0,18]],'win')}));
+  [[66],[78]].forEach(([y])=>items.push({k:y+4,svg:poly([[0,y,8],[0,y+8,8],[0,y+8,18],[0,y,18]],'win')}));
+  items.push({k:40,svg:poly([[0,36,9],[0,48,9],[0,48,16],[0,36,16]],'accent')});
+  /* glass partitions */
+  [[0,26],[32,44],[50,70],[76,100],[106,120]].forEach(([a,b])=>wallX(a,b,28,12,'glass'));
+  [[0,8],[22,38],[44,75],[100,120]].forEach(([a,b])=>wallX(a,b,58,12,'glass'));
+  [36,60,90].forEach(x=>wallY(0,28,x,12,'glass')); [[28,40],[46,58]].forEach(([a,b])=>wallY(a,b,90,12,'glass'));
+  [30,55].forEach(x=>wallY(58,90,x,12,'glass'));
+  /* training room */
+  box(6,0,18,.6,10,'board',6); for(let r=0;r<3;r++)for(let c=0;c<4;c++)chair(6+c*6.5,9+r*6); box(27,3,5,4,5,'wood');
+  /* follow-up office */
+  desk(41,7,13,5); box(55,2,3.5,6,10,'cab'); plant(39,22);
+  /* pipeline room */
+  box(64,0,22,.6,11,'board',5); [[66,4],[72,4],[78,4]].forEach(([x])=>box(x,0,4,.2,3,'accent',10));
+  desk(63,9,11,5); desk(76,9,11,5); plant(86,22);
+  /* tech bar */
+  box(93,4,24,5,5,'wood'); [95,103,111].forEach(x=>{box(x,4.6,4,.6,3.5,'screen',5);chair(x+.6,11)}); box(93,18,8,6,9,'cab'); plant(114,22);
+  /* front desk */
+  box(4,40,3,1,0,'wood'); box(12,33,4,15,7,'counter'); box(12,33,12,4,7,'counter'); box(13,34,2,2,2,'screen',7); plant(3,52,8); plant(25,31,6);
+  /* open coworking */
+  [[38,35],[60,35],[38,46],[60,46]].forEach(([x,y])=>{box(x,y,18,6,5,'wood');box(x+3,y+.6,4,.6,3.5,'screen',5);box(x+11,y+.6,4,.6,3.5,'screen',5);chair(x+3.5,y+7.2);chair(x+11.5,y+7.2)});
+  plant(82,31,9);
+  /* meeting room */
+  box(96,38,11,8,5,'wood'); [[97,35.5],[103,35.5]].forEach(([x,y])=>box(x,y,2.6,2.6,3,'chair')); chair(97,47);chair(103,47);
+  box(110,31,8,7,16,'glass'); box(111,33,3,3,3,'chair'); box(118,40,1,12,10,'board',4);
+  /* sales office */
+  desk(36,66,13,5); box(32,60,12,3,12,'cab'); plant(50,84);
+  /* event hall & cafe */
+  box(58,58.5,18,.6,8,'screen',5); [[62,70],[76,70],[90,70],[76,81]].forEach(([x,y])=>{box(x,y,7,7,5,'wood');chair(x-3.2,y+2);chair(x+7.6,y+2)});
+  box(112,62,6,24,8,'counter'); box(112,62,6,24,1,'wood',8); box(114,58.5,4,3,12,'cab'); plant(104,86,8);
+  /* founders lounge */
+  box(4,62,18,5,4,'sofa'); box(4,62,18,1.6,7,'sofa'); box(4,67,5,13,4,'sofa'); box(12,71,8,6,3,'wood'); box(22,76,5,5,4,'sofa'); plant(25,62,8);
+  items.sort((a,b)=>a.k-b.k);
+  const route=order.map(id=>{const [x,y,w,d]=geo[id].r;return P(x+w/2,y+d/2+4,0).join(',')}).join(' ');
+  const vb=[-410,-140,960,690];
+  $('#map').innerHTML=`<svg viewBox="${vb.join(' ')}" role="img" aria-label="Isometric office floor plan with ten numbered rooms">${base}${floors}${items.map(i=>i.svg).join('')}${lodgers()}</svg><div class="stamp" id="stamp"><b>100% Occupied</b><small>All 10 rooms leased</small></div>`;
+  order.forEach((id,i)=>{const [x,y,w,d]=geo[id].r, [px,py]=P(x+w/2,y+d/2,9).map(Number);
+    const b=document.createElement('button');b.type='button';b.className='pin';b.id='pin-'+id;
+    b.style.left=((px-vb[0])/vb[2]*100)+'%';b.style.top=((py-vb[1])/vb[3]*100)+'%';
+    b.setAttribute('aria-label',`Stop ${i+1}: ${geo[id].place}, ${R[id].name}`);
+    b.innerHTML=`<span class="head"><span>${i+1}</span></span><span class="dot"></span><span class="lbl">${geo[id].place}</span>`;
+    b.addEventListener('click',()=>open(id,b));$('#map').appendChild(b);
+    const c=document.createElement('button');c.type='button';c.className='stop';c.id='stop-'+id;
+    c.innerHTML=`<i>${i+1}</i>${geo[id].place}`;c.addEventListener('click',()=>open(id,c));$('#stops').appendChild(c);});
+}
+function lodgers(){let out='';
+  order.forEach((id,i)=>{const [x,y,w,d]=geo[id].r;
+    const spots=[[.28,.42],[.7,.36],[.5,.74],[.82,.72]].slice(0,w*d>1200?4:3);
+    out+=`<g class="lg" id="lg-${id}">`+spots.map(([a,b],k)=>{const [px,py]=P(x+w*a,y+d*b,0).map(Number);
+      return `<g class="lodger" style="--d:${k*110}ms"><ellipse cx="${px}" cy="${py}" rx="4" ry="1.6" class="s2"/><rect x="${px-3.4}" y="${py-13}" width="6.8" height="13" rx="3.4" class="b${(i+k)%4}"/><circle cx="${px}" cy="${py-16.5}" r="3.3" class="skin"/></g>`}).join('')+'</g>'});
+  return out;}
+let celebrated=false; const timers=[];
+const reduce=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+function confetti(){const m=$('#map'), cols=['var(--brass)','var(--ok)','var(--mid)','var(--chair)','var(--skin)'];
+  for(let i=0;i<70;i++){const c=document.createElement('span');c.className='conf';
+    c.style.cssText=`left:${Math.random()*100}%;background:${cols[i%5]};--t:${1.8+Math.random()*1.4}s;--dl:${Math.random()*.5}s;--dx:${(Math.random()-.5)*160}px;--r:${(Math.random()-.5)*900}deg`;
+    m.appendChild(c); setTimeout(()=>c.remove(),4000);}}
+function celebrate(){
+  celebrated=true; timers.splice(0).forEach(clearTimeout); const rm=reduce(), step=rm?0:280, start=rm?0:650;
+  $('#plan').scrollIntoView({behavior:rm?'auto':'smooth',block:'center'});
+  order.forEach((id,i)=>timers.push(setTimeout(()=>{$('#glow-'+id).classList.add('on');$('#lg-'+id).classList.add('on')},start+i*step)));
+  const end=start+order.length*step+350;
+  timers.push(setTimeout(()=>{$('#stamp').classList.add('on');$('#map').classList.add('done');if(!rm)confetti()},end));
+  timers.push(setTimeout(()=>{const f=$('#finale');f.hidden=false;f.classList.remove('on');void f.offsetWidth;f.classList.add('on')},end+(rm?0:900)));
+  timers.push(setTimeout(()=>$('#finale').scrollIntoView({behavior:rm?'auto':'smooth',block:'center'}),end+(rm?0:2600)));
+}
+function replay(){document.querySelectorAll('.glow.on,.lg.on').forEach(e=>e.classList.remove('on'));
+  $('#stamp').classList.remove('on');$('#map').classList.remove('done');void $('#map').offsetWidth;celebrate();}
+const toured=new Set(); let opener=null;
+function refresh(){
+  const n=toured.size; $('#pct').textContent=n*10+'%';
+  $('#meterNote').textContent=n===10?'All 10 rooms toured. Fully occupied.':`${n} of 10 rooms toured`;
+  bar.querySelectorAll('i').forEach((b,k)=>b.classList.toggle('on',k<n));
+  const nxt=order.find(id=>!toured.has(id));
+  order.forEach(id=>{$('#pin-'+id).classList.toggle('seen',toured.has(id));$('#stop-'+id).classList.toggle('seen',toured.has(id));$('#pin-'+id).classList.toggle('next',id===nxt)});
+  document.body.classList.toggle('full',n===10); $('.pre').hidden=n===10;
+}
+function open(id,from){
+  if(from)opener=from; const i=order.indexOf(id), r=R[id], g=geo[id]; toured.add(id);
+  const prev=order[(i+9)%10], next=order[(i+1)%10];
+  $('#modal').innerHTML=`
+    <div class="top"><span class="eyebrow">Stop ${i+1} of 10 · ${r.wing==='resp'?'Responsibility':'Qualification'}</span><button class="x" type="button" id="xBtn" aria-label="Close">×</button></div>
+    <h2 id="mTitle">${g.place}</h2><p class="topic">${r.name} <span class="chip ${r.level}">${r.level==='Direct'?'Hands-on experience':'Related experience'}</span></p>
+    <p class="req"><b>From the job description</b>${r.req}</p>
+    <p class="pitch">${r.pitch}</p>
+    <ul class="ev">${r.ev.map(e=>`<li${e[2]?` class="x-${e[2]}"`:''}>${e[2]?`<span class="tag">${e[2]==='vol'?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14s-5.5-3.3-5.5-7.2A3 3 0 0 1 8 5a3 3 0 0 1 5.5 1.8C13.5 10.7 8 14 8 14z"/></svg>Community &amp; volunteer':'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7 8 2l6 5v7H2z"/></svg>Entrepreneurial'}</span>`:''}<span class="src">${e[0]}</span><span class="txt">${e[1]}</span></li>`).join('')}</ul>
+    <p class="for"><b>For WorkLodge:</b> ${r.lodge}</p>
+    <div class="nav"><button class="btn" type="button" data-go="${prev}">← ${geo[prev].place}</button><button class="btn solid" type="button" data-go="${next}">${toured.size===10&&!celebrated?'Finish the tour ✓':geo[next].place+' →'}</button></div>`;
+  $('#scrim').hidden=false; $('#modal').scrollTop=0; $('#modal').focus();
+  $('#xBtn').addEventListener('click',close);
+  $('#modal').querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{ if(b.textContent.startsWith('Finish the tour')) close(); else open(b.dataset.go);}));
+  refresh();
+}
+function close(){ $('#scrim').hidden=true; if(toured.size===10&&!celebrated){celebrate();} else if(opener)opener.focus({preventScroll:true}); }
+$('#scrim').addEventListener('click',e=>{if(e.target.id==='scrim')close()});
+document.addEventListener('keydown',e=>{if($('#scrim').hidden)return; if(e.key==='Escape')close();
+  if(e.key==='Tab'){const f=[...$('#modal').querySelectorAll('button')];if(!f.length)return;const a=f[0],z=f[f.length-1];
+    if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+$('#start').addEventListener('click',e=>open(order.find(id=>!toured.has(id))||'desk',e.currentTarget));
+build(); refresh();
+$('#replay').addEventListener('click',replay);
+$('#fCopy').addEventListener('click',()=>{const b=$('#fCopy');
+  try{navigator.clipboard.writeText('howard.dh@gmail.com').then(()=>{b.textContent='Email copied';setTimeout(()=>b.textContent='Copy my email',1800)}).catch(()=>{b.textContent='howard.dh@gmail.com'})}catch(e){b.textContent='howard.dh@gmail.com'}});
+$('#copy').addEventListener('click',()=>{
+  const t='howard.dh@gmail.com', b=$('#copy');
+  const sel=()=>{const r=document.createRange();r.selectNodeContents($('#email'));const s=getSelection();s.removeAllRanges();s.addRange(r);};
+  try{navigator.clipboard.writeText(t).then(()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy email',1600)}).catch(sel)}catch(e){sel()}
+});
+</script>
+
+</body>
+</html>
