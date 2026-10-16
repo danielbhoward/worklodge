@@ -110,7 +110,9 @@ button{font:inherit;color:inherit}
 .pin.next .head{animation:bob 1.6s ease-in-out infinite}
 @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -6px}}
 @media (max-width:760px){.pin .lbl{display:none}.pin .head{width:28px;height:28px}.pin .head span{font-size:12px}}
-.stops{display:flex;flex-wrap:wrap;gap:8px}
+.stops{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+@media (max-width:760px){.stops{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.stop{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stop{display:inline-flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;border-radius:999px;border:1px solid var(--line);
   background:var(--surface);cursor:pointer;font:700 13px/1 var(--display)}
 .stop i{font-style:normal;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--brass);color:#fff;font-size:11px}
@@ -187,6 +189,9 @@ button{font:inherit;color:inherit}
 .for{margin:0;font-size:.95rem;color:var(--muted)}
 .for b{color:var(--ink)}
 .nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.navbtn{flex-direction:column;align-items:flex-start;gap:5px;padding:10px 18px 12px}
+.navbtn.end{align-items:flex-end;text-align:right;margin-left:auto}
+.navbtn small{font:700 10px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;opacity:.7}
 @media (prefers-reduced-motion:reduce){.pin.next .head,.modal{animation:none}}
 
 /* lower sections */
@@ -224,7 +229,7 @@ button{font:inherit;color:inherit}
   <header class="hero">
     <span class="ghost" aria-hidden="true">Lodger.</span>
     <span class="pill">Community Sales Lead · Woodlands / Vintage Park</span>
-    <h1>Sales, community and coworking.<em>I'd love to help.</em></h1>
+    <h1>Sales, Community and Full Spaces.<em>I'd love to help.</em></h1>
     <p>Thanks for taking a look. I put this together to show how my background lines up with the role. Each room on the floor below is one line from the job description, with the experience I'd bring to it. Visit all ten and the building reaches 100% occupancy.</p>
     <div class="links">
       <a class="btn solid" href="#plan">Take the Tour</a>
@@ -493,15 +498,15 @@ function open(id,from){
   const prev=order[(i+9)%10], next=order[(i+1)%10];
   $('#modal').innerHTML=`
     <div class="top"><span class="eyebrow">Stop ${i+1} of 10 · ${r.wing==='resp'?'Responsibility':'Qualification'}</span><button class="x" type="button" id="xBtn" aria-label="Close">×</button></div>
-    <h2 id="mTitle">${g.place}</h2><p class="topic">${r.name} <span class="chip ${r.level}">${r.level==='Direct'?'Hands-on experience':'Related experience'}</span></p>
+    <h2 id="mTitle">${g.place}</h2>
     <p class="req"><b>From the job description</b>${r.req}</p>
     <p class="pitch">${r.pitch}</p>
     <ul class="ev">${r.ev.map(e=>`<li${e[2]?` class="x-${e[2]}"`:''}>${e[2]?`<span class="tag">${e[2]==='vol'?'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14s-5.5-3.3-5.5-7.2A3 3 0 0 1 8 5a3 3 0 0 1 5.5 1.8C13.5 10.7 8 14 8 14z"/></svg>Community &amp; volunteer':'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 7 8 2l6 5v7H2z"/></svg>Entrepreneurial'}</span>`:''}<span class="src">${e[0]}</span><span class="txt">${e[1]}</span></li>`).join('')}</ul>
     <p class="for"><b>For WorkLodge:</b> ${r.lodge}</p>
-    <div class="nav"><button class="btn" type="button" data-go="${prev}">← ${geo[prev].place}</button><button class="btn solid" type="button" data-go="${next}">${toured.size===10&&!celebrated?'Finish the tour ✓':geo[next].place+' →'}</button></div>`;
+    <div class="nav"><button class="btn navbtn" type="button" data-go="${prev}"><small>← Previous room</small>${geo[prev].place}</button>${toured.size===10&&!celebrated?`<button class="btn solid navbtn end" type="button" data-finish="1"><small>Last stop</small>Finish the tour ✓</button>`:`<button class="btn solid navbtn end" type="button" data-go="${next}"><small>Next room →</small>${geo[next].place}</button>`}</div>`;
   $('#scrim').hidden=false; $('#modal').scrollTop=0; $('#modal').focus();
   $('#xBtn').addEventListener('click',close);
-  $('#modal').querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{ if(b.textContent.startsWith('Finish the tour')) close(); else open(b.dataset.go);}));
+  $('#modal').querySelectorAll('[data-go],[data-finish]').forEach(b=>b.addEventListener('click',()=>{ if(b.dataset.finish) close(); else open(b.dataset.go);}));
   refresh();
 }
 function close(){ $('#scrim').hidden=true; if(toured.size===10&&!celebrated){celebrate();} else if(opener)opener.focus({preventScroll:true}); }
